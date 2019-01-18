@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>StarNotary DAPP Front End</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <script src="./app.js"></script>
+    <style>
+.container {
+    background-color: #a8aaff33;
+    border: 1px solid #e3ceff;
+    margin: 10px;
+    color: #989ae4 !important;
+    padding-left: 11px;
+    padding-right: 11px;
+      text-align: center;
+    
+        }
+button {
+    font-size: 16px;
+    padding: 5px;
+    background-color: #e3ceff;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 100%;
+}
+    </style>
+</head>
+<body>
+  <h1>StarNotary Token DAPP</h1>
+
+  <hr>
+<div class = "container">
+  <br>
+    <h1>Create a Star</h1>
+    <br><label for="starName">Star Name:</label><input type="text" id="starName"></input>
+    <br><label for="starId">Star ID:</label><input type="text" id="starId"></input>
+    <br><br><button id="createStar" onclick="App.createStar()">Create Star</button>
+    <br><br>
+    <br>
+
+    <span id="status"></span>
+</div>
+<!--Add an input box and a button to Lookup a star by ID using tokenIdToStarInfo-->
+<div class = "container">
+    <br>
+    <h1>Lookup a Star</h1>
+    <br><label for="starId2">Star ID:</label><input type="text" id="starId2"></input>
+    <br><br><button id="lookupStar" onclick="App.lookupStar()">Lookup Star</button>
+    <br><br>
+    <br>
+
+    <span id="startInfo"></span>
+</div>
+    <br>
+</body>
+</html>
