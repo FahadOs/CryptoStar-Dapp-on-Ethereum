@@ -13,6 +13,8 @@ contract('StarNotary', async (accs) => {
     let tokenId = 1;
     await instance.createStar('Awesome Star!', tokenId, {from: accounts[0]})
     assert.equal(await instance.tokenIdToStarInfo.call(tokenId), 'Awesome Star!')
+    assert.equal(await instance.name.call(), 'Star Token')
+    assert.equal(await instance.symbol.call(), 'STT')
       
   });
 
@@ -63,4 +65,34 @@ contract('StarNotary', async (accs) => {
     const balanceAfterUser2BuysStar = web3.eth.getBalance(user2)
     assert.equal(balanceOfUser2BeforeTransaction.sub(balanceAfterUser2BuysStar), starPrice);
   });
+
+// 2 users can exchange their stars.
+it('2 users can exchange their stars', async() => {
+
+  let user1 = accounts[1]
+  let user2 = accounts[2]
+  let starId = 7
+  let starId2 = 8
+  await instance.createStar('user 1 star', starId, {from: user1})
+  await instance.createStar('user 2 star', starId2, {from: user2})
+   await instance.exchangeStars(user1 , user2, starId, starId2)
+    assert.equal(await instance.ownerOf.call(starId), user2);
+    assert.equal(await instance.ownerOf.call(starId2), user1);
+
+});
+
+
+// Stars Tokens can be transferred from one address to another
+it('let user transfare star to user2 ', async() => {
+
+  let user1 = accounts[1]
+  let user2 = accounts[2]
+  let starId = 9
+  
+  await instance.createStar('user 1 star', starId, {from: user1})
+  await instance.transferStar(user2, starId)
+    
+  assert.equal(await instance.ownerOf.call(starId), user2);
+
+});
 

@@ -8,7 +8,7 @@ networks: {
  },
  rinkeby: {
   provider: function() {
- return new HDWalletProvider("")
+ return new HDWalletProvider("mnemonic", "your_infura_url")
      },
       network_id: '4',
       gas: 4500000,
@@ -16,3 +16,4 @@ networks: {
     }
    }
  };
+

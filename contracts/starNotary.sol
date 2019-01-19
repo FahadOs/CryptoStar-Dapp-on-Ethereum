@@ -61,22 +61,28 @@ contract StarNotary is ERC721 {
 
 // Add a function called exchangeStars, so 2 users can exchange their star tokens...
 //Do not worry about the price, just write code to exchange stars between users.
-    function exchangeStars(address transferFrom , address transferTo, uint256 tokenId, uint256 tokenId2) public returns(bool sufficient) {
-        
+    function exchangeStars(address transferFrom , address transferTo, uint256 tokenId, uint256 tokenId2) public {
+       //remove tokens
+        _removeTokenFrom(transferFrom, tokenId);
+        _removeTokenFrom(transferTo, tokenId2);
+        //add tokens
+        _addTokenTo(transferFrom, tokenId2);
+        _addTokenTo(transferTo, tokenId);
+        //emit transfer event
         emit Transfer(transferFrom, transferTo, tokenId);
         emit Transfer(transferTo , transferFrom, tokenId2);
 
-        return true; 
         
     }
 //
 
 // Write a function to Transfer a Star. The function should transfer a star from the address of the caller.
 // The function should accept 2 arguments, the address to transfer the star to, and the token ID of the star.
-    function transferStar(address transferTo, uint256 tokenId) public returns(bool sufficient) {
-        
-        emit Transfer(msg.sender, transferTo, tokenId);
-        return true;
+    function transferStar(address transferTo, uint256 tokenId) public  {
+        address starOwner = ownerOf(tokenId);
+        _removeTokenFrom(starOwner, tokenId);
+        _addTokenTo(transferTo, tokenId);
+        emit Transfer(starOwner, transferTo, tokenId);
         
     }
     
